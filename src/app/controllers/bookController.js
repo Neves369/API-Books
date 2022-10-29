@@ -11,7 +11,6 @@ router.get('/', async(req, res) =>{
         return res.send({ books });
 
     } catch (error) {
-        console.log(error)
         return res.status(400).send({erro: 'Não foi possível recuperar os livros'}) 
     }
 });
@@ -41,12 +40,11 @@ router.put('/:bookId', async(req, res)=>{
         const id = req.params.bookId
         const book = req.body
         
-        const response = await Book.findByIdAndUpdate({"_id" : `${id}`}, )
-
+        const response = await Book.findByIdAndUpdate({"_id" : `${id}`}, book)
         return res.send({ book });
 
     } catch (error) {
-        return res.status(400).send({erro: 'Não foi possivel recuperar o livro'}) 
+        return res.status(400).send({erro: 'Não foi possivel atualizar o livro'}) 
     }
 })
 

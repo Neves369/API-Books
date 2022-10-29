@@ -6,9 +6,7 @@ const User = require('../models/user');
 const router = express.Router();
 
 function gerarToken(params = {}){
-    return jwt.sign( params, process.env.SECRET, {
-        expiresIn: 86400,
-    });
+    return jwt.sign( params, process.env.SECRET);
 }
 
 router.post('/register', async(req, res) => {

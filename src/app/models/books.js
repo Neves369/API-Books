@@ -9,15 +9,35 @@ const BooksSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    arquivo: {
+    genero: {
+        type: Array,
+        require: true,
+    },
+    linguagem: {
         type: String,
         require: true,
     },
-    capa: {
+    nota: {
+        type: Number,
+        require: true,
+    },
+    numeroPaginas: {
+        type: Number,
+        require: true,
+    },
+    rank: {
+        type: Number,
+        require: true,
+    },
+    ref_capa: {
         type: String,
         require: true, 
     },
-    genero: {
+    ref_data: {
+        type: String,
+        require: true, 
+    },
+    descricao: {
         type: String,
         require: true, 
     }

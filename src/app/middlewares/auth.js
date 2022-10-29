@@ -16,11 +16,11 @@ module.exports = (req, res, next) => {
     const [ scheme, token] = parts;
 
     if(!/^Bearer$/i.test(scheme)){
-        return res.status(401).send({erro: "Token com formato invalido" });
+        return res.status(401).send({erro: "Token com formato inválido" });
     }
 
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
-        if(err) return res.status(401).send({erro: "Token invalido"});
+        if(err) return res.status(401).send({erro: "Token inválido"});
 
         req.userId = decoded.id;
         return next();
