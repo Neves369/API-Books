@@ -1,6 +1,9 @@
 const express = require('express');
 const Book = require('../models/books');
+const authMiddleware = require('../middlewares/auth');
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.get('/', async(req, res) =>{
     try {
@@ -8,7 +11,8 @@ router.get('/', async(req, res) =>{
         return res.send({ books });
 
     } catch (error) {
-        return res.status(400).send({erro: 'Não foi possivel recuperar os livros'}) 
+        console.log(error)
+        return res.status(400).send({erro: 'Não foi possível recuperar os livros'}) 
     }
 });
 
@@ -18,7 +22,7 @@ router.get('/:bookId', async(req, res)=>{
         return res.send({ book });
 
     } catch (error) {
-        return res.status(400).send({erro: 'Não foi possivel recuperar o livro'}) 
+        return res.status(400).send({erro: 'Não foi possível recuperar o livro'}) 
     }
 })
 
@@ -28,7 +32,7 @@ router.post('/', async(req, res)=>{
         return res.send({ book });
 
     } catch (error) {
-        return res.status(400).send({erro: 'Não foi possivel submeter o livro'})
+        return res.status(400).send({erro: 'Não foi possível submeter o livro'})
     }
 })
 
@@ -52,7 +56,7 @@ router.delete('/:bookId', async(req, res)=>{
        return res.send("livro deletado")
 
    } catch (error) {
-       return res.status(400).send({erro: 'Não foi possivel deletar o livro'})
+       return res.status(400).send({erro: 'Não foi possível deletar o livro'})
     }
    
 })

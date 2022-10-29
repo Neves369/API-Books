@@ -8,7 +8,7 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.json({ type: 'application/vnd.api+json' }));
 app.use(cors());
 
-
+require('./src/app/controllers/authController')(app);
 require('./src/app/controllers/bookController')(app);
 
 const port = process.env.PORT || 3000;
