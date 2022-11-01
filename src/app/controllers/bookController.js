@@ -1,4 +1,6 @@
 const express = require('express');
+// const fs = require('fs').promises;
+const fs = require('fs');
 const Book = require('../models/books');
 const authMiddleware = require('../middlewares/auth');
 const router = express.Router();
@@ -8,9 +10,25 @@ router.use(authMiddleware);
 router.get('/', async(req, res) =>{
     try {
         const books = await Book.find()
-        return res.send({ books });
+
+        books.forEach((book) => {
+            
+            let teste = fs.readFileSync(`../../api/books/${book.ref_capa}/capa.png`, {encoding: 'base64'})
+            // .then(function(result) {
+            //     book.capa = result;
+            // })
+            // .catch(function(error) {
+            //     console.log(error);
+            //  })
+            book.capa = teste;
+        });
+
+        // setTimeout(() => {
+            return res.send(books);
+        // }, 5000);
 
     } catch (error) {
+        console.log(error)
         return res.status(400).send({erro: 'Não foi possível recuperar os livros'}) 
     }
 });
@@ -18,6 +36,8 @@ router.get('/', async(req, res) =>{
 router.get('/:bookId', async(req, res)=>{
     try {
         const book = await Book.find({"_id" : `${req.params.bookId}`});
+
+
         return res.send({ book });
 
     } catch (error) {

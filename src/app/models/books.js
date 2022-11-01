@@ -33,6 +33,10 @@ const BooksSchema = new mongoose.Schema({
         type: String,
         require: true, 
     },
+    capa: {
+        type: String,
+        require: false,
+    },
     ref_data: {
         type: String,
         require: true, 
