@@ -38,7 +38,7 @@ router.get('/', async(req, res) =>{
 
         books.forEach((book) => {
             
-            let teste = fs.readFileSync(`../api/books/${book.ref}/capa.png`, {encoding: 'base64'})
+            let teste = fs.readFileSync(`../books/${book.ref}/capa.png`, {encoding: 'base64'})
            
             book.capa = teste;
         });
@@ -71,7 +71,7 @@ router.get('/data/:bookId', async(req, res)=>{
         let book = await Book.find({"_id" : `${req.params.bookId}`});
         book = book.shift();
 
-        let data = fs.readFileSync(`../api/books/${book.ref}/data.epub`, {encoding: 'base64'})
+        let data = fs.readFileSync(`../books/${book.ref}/data.epub`, {encoding: 'base64'})
 
         return res.send(data);
 
