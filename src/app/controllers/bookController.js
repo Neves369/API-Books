@@ -38,7 +38,7 @@ router.get('/', async(req, res) =>{
 
         books.forEach((book) => {
             
-            let teste = fs.readFileSync(`../books/${book.ref}/capa.png`, {encoding: 'base64'})
+            let teste = fs.readFileSync(`./books/${book.ref}/capa.png`, {encoding: 'base64'})
            
             book.capa = teste;
         });
