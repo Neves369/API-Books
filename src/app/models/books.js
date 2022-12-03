@@ -29,17 +29,13 @@ const BooksSchema = new mongoose.Schema({
         type: Number,
         require: true,
     },
-    ref_capa: {
+    ref: {
         type: String,
         require: true, 
     },
     capa: {
         type: String,
         require: false,
-    },
-    ref_data: {
-        type: String,
-        require: true, 
     },
     descricao: {
         type: String,

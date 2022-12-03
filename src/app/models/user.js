@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
         
     },
 
+    favoritos: {
+        type: Array
+    },
+
     createdAt:{
         type: Date,
         default: Date.now,

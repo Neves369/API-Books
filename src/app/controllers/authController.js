@@ -45,7 +45,7 @@ router.get('/authenticate', async(req, res) => {
     }
     else{
         user.senha = undefined;
-       return res.send({id: user._id, nome: user.nome, email: user.email, token: gerarToken({id: user.id})});
+       return res.send({id: user._id, nome: user.nome, email: user.email, favoritos: user.favoritos, token: gerarToken({id: user.id})});
     }
 
    
