@@ -21,9 +21,9 @@ app.use((0, cors_1.default)());
 (0, authController_1.default)(app);
 (0, userController_1.default)(app);
 (0, bookController_1.default)(app);
-app.use((error, req, res, next) => {
-    res.status(500).send(error.message);
-});
+// app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+//     res.status(500).send(error.message);
+// })
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log("Aplicação rodando na porta ", port);

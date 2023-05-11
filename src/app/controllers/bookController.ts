@@ -4,6 +4,7 @@ import Book from '../models/books';
 import authMiddleware from '../middlewares/auth';
 import { Router } from 'express-serve-static-core';
 import  converter  from '../../util/convertArrayToString';
+import { generateAWSAuthHeader } from '../../util/generateHeaderAWS';
 
 const router = express.Router();
 
@@ -14,7 +15,6 @@ router.get('/', async(req, res) =>{
     try {
 
         let books: any[] = [];
-        console.log(req)
 
         // Busca todos os livros de uma determinada categoria
         if(req.headers.categoria){
@@ -46,15 +46,11 @@ router.get('/', async(req, res) =>{
             
         }
 
+        // const authHeader = generateAWSAuthHeader();
+          
+        // console.log(authHeader);
 
-        // books.forEach((book) => {
-            
-        //     let teste = fs.readFileSync(`./books/${book.ref}/capa.png`, {encoding: 'base64'})
-           
-        //     book.capa = teste;
-        // });
-
-         return res.send(books);
+        return res.send(books);
         
 
     } catch (error) {
@@ -94,6 +90,7 @@ router.get('/data/:bookId', async(req, res)=>{
     }
 })
 
+// Recebe o livro e o salva no banco de dados (precisa terminar)
 router.post('/', async(req, res)=>{
     try {
         const book = await Book.create(req.body)
@@ -104,6 +101,7 @@ router.post('/', async(req, res)=>{
     }
 })
 
+// Atualiza um livro (precisa terminar)
 router.put('/:bookId', async(req, res)=>{
     try {
         const id = req.params.bookId
@@ -114,6 +112,25 @@ router.put('/:bookId', async(req, res)=>{
 
     } catch (error) {
         return res.status(400).send({erro: 'Não foi possível atualizar o livro'}) 
+    }
+})
+
+// Recebe a referencia de um livro e retorna a autorização para baixá-lo
+router.put('/auth/:bookId', async(req, res)=>{
+    try {
+
+        let ref: any = req.headers.ref
+        
+        let remove = "https://litterae.s3.sa-east-1.amazonaws.com";
+        ref = ref.replace(new RegExp(remove, 'g'), "");
+
+        let auth = generateAWSAuthHeader(ref);
+
+        return res.send(auth);
+
+        
+    } catch (error) {
+        return res.status(400).send({erro: 'Erro ao autorizar transação'}) 
     }
 })
 

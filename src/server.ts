@@ -22,9 +22,9 @@ authController(app);
 userController(app);
 bookController(app);
  
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-    res.status(500).send(error.message);
-})
+// app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+//     res.status(500).send(error.message);
+// })
 
 const port = process.env.PORT || 3000;
 
