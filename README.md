@@ -18,7 +18,6 @@
 
   - [Node.js](https://nodejs.org/en/)
   - [MongoDB](https://www.mongodb.com/)  
-  - [Axios](https://github.com/axios/axios)
   - [Express](https://expressjs.com/pt-br/)
   
 
