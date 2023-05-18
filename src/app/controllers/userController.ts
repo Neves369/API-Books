@@ -23,6 +23,11 @@ router.get('/', async(req, res) =>{
 // Retorna as informações de um usuário por id 
 router.get('/:userId', async(req, res) =>{
     try {
+
+        if(!req.params.userId){
+            return res.status(400).send({erro: 'Informe o usuário'});
+        }
+
         let  user= await User.findOne({"_id" : `${req.params.userId}`});
 
         return res.send(user);
@@ -35,6 +40,11 @@ router.get('/:userId', async(req, res) =>{
 
 router.put('/:userId', async(req, res)=>{
     try {
+
+        if(!req.params.userId){
+            return res.status(400).send({erro: 'Informe o usuário'});
+        }
+
         const id = req.params.userId
         const user = req.body
         

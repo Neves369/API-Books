@@ -18,8 +18,12 @@ router.get('/', async(req, res) =>{
 
         // Busca todos os livros de uma determinada categoria
         if(req.headers.categoria){
-            
-            books = await Book.find({ genero: { $in: req.headers.categoria } })
+            if(req.headers.categoria == "ALL"){
+                books = await Book.find()
+            }
+            else{
+                books = await Book.find({ genero: { $in: req.headers.categoria } })
+            }
         }
 
         // Busca 3 livros de cada categoria informada
@@ -46,15 +50,11 @@ router.get('/', async(req, res) =>{
             
         }
 
-        // const authHeader = generateAWSAuthHeader();
-          
-        // console.log(authHeader);
 
         return res.send(books);
         
 
     } catch (error) {
-        console.log(error)
         return res.status(400).send({erro: 'Não foi possível recuperar os livros'}) 
     }
 });

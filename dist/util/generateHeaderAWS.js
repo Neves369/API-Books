@@ -13,8 +13,8 @@ function generateAWSAuthHeader(path) {
         service: 's3'
     };
     const credentials = {
-        accessKeyId: 'AKIA4AZTEZETP6KV4O56',
-        secretAccessKey: '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'
+        accessKeyId: process.env.AWS_ACESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_KEY
     };
     const signedRequest = aws4_1.default.sign(options, credentials);
     return signedRequest.headers;

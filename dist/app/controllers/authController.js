@@ -34,15 +34,14 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
         }
     }
     catch (error) {
-        console.log(error);
+        return res.status(400).send({ Erro: 'Não foi possível criar novo usuário!' });
     }
 }));
 router.get('/authenticate', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, senha } = req.headers;
-    console.log(req.headers);
     const user = yield user_1.default.findOne({ email }).select('+senha');
     if (!user) {
-        return res.status(400).send({ Erro: 'Cheque os campos!' });
+        return res.status(400).send({ Erro: 'Email e/ou senha incorreto(s)' });
     }
     if (senha && user.senha) {
         if (!(yield bcryptjs_1.default.compare(String(senha), user.senha))) {

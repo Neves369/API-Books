@@ -25,7 +25,7 @@ router.post('/register', async(req, res) => {
             return res.send({user, token: gerarToken({id: user.id})});
         }
     } catch (error) {
-      console.log(error)  
+        return res.status(400).send({Erro: 'Não foi possível criar novo usuário!'});
     }
     
         
@@ -34,12 +34,11 @@ router.post('/register', async(req, res) => {
 
 router.get('/authenticate', async(req, res) => {
     const {email, senha} = req.headers;
-    console.log(req.headers)
-
+    
     const user = await User.findOne({ email }).select('+senha');
 
     if (!user){
-        return res.status(400).send({Erro: 'Cheque os campos!'});
+        return res.status(400).send({Erro: 'Email e/ou senha incorreto(s)'});
     }
     if(senha && user.senha){
         if (!await bcrypt.compare(String(senha), user.senha)){

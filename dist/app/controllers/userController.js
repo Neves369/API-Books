@@ -31,6 +31,9 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 // Retorna as informações de um usuário por id 
 router.get('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        if (!req.params.userId) {
+            return res.status(400).send({ erro: 'Informe o usuário' });
+        }
         let user = yield user_1.default.findOne({ "_id": `${req.params.userId}` });
         return res.send(user);
     }
@@ -40,6 +43,9 @@ router.get('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.put('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        if (!req.params.userId) {
+            return res.status(400).send({ erro: 'Informe o usuário' });
+        }
         const id = req.params.userId;
         const user = req.body;
         const response = yield user_1.default.findByIdAndUpdate({ "_id": `${id}` }, user);

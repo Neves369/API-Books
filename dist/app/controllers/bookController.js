@@ -26,7 +26,12 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let books = [];
         // Busca todos os livros de uma determinada categoria
         if (req.headers.categoria) {
-            books = yield books_1.default.find({ genero: { $in: req.headers.categoria } });
+            if (req.headers.categoria == "ALL") {
+                books = yield books_1.default.find();
+            }
+            else {
+                books = yield books_1.default.find({ genero: { $in: req.headers.categoria } });
+            }
         }
         // Busca 3 livros de cada categoria informada
         if (req.headers.categorias) {
@@ -45,12 +50,9 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             let favoritos = (0, convertArrayToString_1.default)(String(req.headers.favoritos));
             books = yield books_1.default.find({ "_id": { $in: favoritos } });
         }
-        // const authHeader = generateAWSAuthHeader();
-        // console.log(authHeader);
         return res.send(books);
     }
     catch (error) {
-        console.log(error);
         return res.status(400).send({ erro: 'Não foi possível recuperar os livros' });
     }
 }));
