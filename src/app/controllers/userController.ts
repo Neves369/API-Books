@@ -1,5 +1,6 @@
 import express from 'express';
 import User from '../models/user';
+import bcrypt from 'bcryptjs';
 import authMiddleware from '../middlewares/auth';
 
 const router = express.Router();
@@ -37,7 +38,7 @@ router.get('/:userId', async(req, res) =>{
     }
 })
 
-
+// Altera um usuário pelo id
 router.put('/:userId', async(req, res)=>{
     try {
 
@@ -47,6 +48,7 @@ router.put('/:userId', async(req, res)=>{
 
         const id = req.params.userId
         const user = req.body
+        user.senha = await bcrypt.hash(user.senha!, 10);
         
         const response = await User.findByIdAndUpdate({"_id" : `${id}`}, user)
         return res.send(user);

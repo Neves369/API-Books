@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const user_1 = __importDefault(require("../models/user"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const auth_1 = __importDefault(require("../middlewares/auth"));
 const router = express_1.default.Router();
 router.use(auth_1.default);
@@ -41,6 +42,7 @@ router.get('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function*
         return res.status(400).send({ erro: 'Não foi possível recuperar usuário' });
     }
 }));
+// Altera um usuário pelo id
 router.put('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (!req.params.userId) {
@@ -48,6 +50,7 @@ router.put('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
         const id = req.params.userId;
         const user = req.body;
+        user.senha = yield bcryptjs_1.default.hash(user.senha, 10);
         const response = yield user_1.default.findByIdAndUpdate({ "_id": `${id}` }, user);
         return res.send(user);
     }

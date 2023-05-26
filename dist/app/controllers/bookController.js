@@ -77,7 +77,6 @@ router.get('/data/:bookId', (req, res) => __awaiter(void 0, void 0, void 0, func
         return res.send(data);
     }
     catch (error) {
-        console.log(error);
         return res.status(400).send({ erro: 'Não foi possível recuperar o livro' });
     }
 }));

@@ -85,7 +85,6 @@ router.get('/data/:bookId', async(req, res)=>{
         return res.send(data);
 
     } catch (error) {
-        console.log(error)
         return res.status(400).send({erro: 'Não foi possível recuperar o livro'}) 
     }
 })
